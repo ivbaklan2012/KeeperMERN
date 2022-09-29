@@ -13,14 +13,15 @@ app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
+
+app.use("/api/notes", notesRoutes);
+app.use("/api/user", userRoutes);
+
 app.use(express.static(path.join(__dirname, "build")));
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-
-app.use("/api/notes", notesRoutes);
-app.use("/api/user", userRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
